@@ -10,14 +10,10 @@ const messages = [
 function App() {
   const [step, setStep] = useState(1);
   const handlePrevious = () => {
-    while (step > 1) {
-      setStep(step - 1);
-    }
+    if (step > 1) setStep(step - 1);
   };
   const handleNext = () => {
-    while (step <= 3) {
-      setStep(step + 1);
-    }
+    if (step < 3) setStep(step + 1);
   };
   return (
     <div className="steps">
