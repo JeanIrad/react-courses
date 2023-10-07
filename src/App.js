@@ -1,51 +1,68 @@
 import { useState } from "react";
-import "./index.css";
+import "./styles.css";
 
-const messages = [
-  "Learn React ⚛️",
-  "Apply for jobs 💼",
-  "Invest your new income 🤑",
-];
-
-function App() {
-  const [step, setStep] = useState(1);
-  const handlePrevious = () => {
-    if (step > 1) setStep(step - 1);
-  };
-  const handleNext = () => {
-    if (step < 3) setStep(step + 1);
-  };
+export default function App() {
   return (
-    <div className="steps">
-      <div className="numbers">
-        <div className={`${step === 1 ? "active" : ""}`}>1</div>
-        <div className={`${step === 2 ? "active" : ""}`}>2</div>
-        <div className={`${step === 3 ? "active" : ""}`}>3</div>
-      </div>
-      <p className="message">
-        step {step}: {messages[step - 1]}
-      </p>
-      <div className="buttons">
-        <button
-          style={{
-            "background-color": "#7950f2",
-            color: "#fff",
-          }}
-          onClick={handlePrevious}
-        >
-          Previous
-        </button>
-        <button
-          style={{
-            "background-color": "#7950f2",
-            color: "#fff",
-          }}
-          onClick={handleNext}
-        >
-          next
-        </button>
-      </div>
+    <div className="App">
+      <FlashCards />
     </div>
   );
 }
-export default App;
+
+const questions = [
+  {
+    id: 3457,
+    question: "What language is React based on?",
+    answer: "JavaScript"
+  },
+  {
+    id: 7336,
+    question: "What are the building blocks of React apps?",
+    answer: "Components"
+  },
+  {
+    id: 8832,
+    question: "What's the name of the syntax we use to describe a UI in React?",
+    answer: "JSX"
+  },
+  {
+    id: 1297,
+    question: "How to pass data from parent to child components?",
+    answer: "Props"
+  },
+  {
+    id: 9103,
+    question: "How to give components memory?",
+    answer: "useState hook"
+  },
+  {
+    id: 2002,
+    question:
+      "What do we call an input element that is completely synchronised with state?",
+    answer: "Controlled element"
+  }
+];
+
+function FlashCards() {
+  return (
+    <div className="container">
+      <h1> React Exercises Question and Answers</h1>
+      {questions.map((question) => (
+        <FlashCard qn={question} key={question.id} />
+      ))}
+    </div>
+  );
+}
+function FlashCard({ qn }) {
+  const [cardColor, setCardColor] = useState(false);
+
+  return (
+    <div
+      className="flashcard"
+      onClick={() => setCardColor(!cardColor)}
+      style={cardColor ? { background: "red", color: "#ddd" } : {}}
+    >
+      <p>{cardColor ? qn.answer : qn.question}</p>
+    </div>
+  );
+}
